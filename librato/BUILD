@@ -51,6 +51,6 @@ pkg_deb(
     homepage = "https://github.com/envoyproxy/envoy",
     maintainer = "Lyft (packaged by https://github.com/pcn)",
     package = "lyft-envoy",
-    version = "v1.5.0"
+    version = "1.5.0"
     # version_file = ":debian-version",  # version_file is useless until https://github.com/bazelbuild/bazel/issues/3652 is fixed
 )
