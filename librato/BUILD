@@ -29,7 +29,7 @@ genrule(
 
 pkg_tar(
     name = "envoy-bin",
-    strip_prefix = "/",
+    strip_prefix = "/librato",
     package_dir = "/opt/envoy/bin", 
     srcs = [":rename-binary"],
     mode = "0755",
