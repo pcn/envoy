@@ -27,6 +27,15 @@ genrule(
     stamp = 1  # stamp makes the volatile-status available, apparently
 )
 
+
+genrule(
+    name = "copy_resources",
+    srcs = ["//restarter:restarter_resources"],
+    outs = [ "hot-restarter.py" ],
+    cmd = "cp -f $(SRCS) $@",
+)
+
+
 pkg_tar(
     name = "envoy-bin",
     strip_prefix = "/librato",
@@ -36,9 +45,18 @@ pkg_tar(
 )
 
 pkg_tar(
+    name = "envoy-restarter",
+    strip_prefix = "/restarter",
+    package_dir = "/opt/envoy/bin", 
+    srcs = ["//restarter:restarter_resources"],
+    mode = "0755",
+)
+
+
+pkg_tar(
     name = "envoy-data",
     extension = ".tar.gz",
-    deps = [":envoy-bin"],
+    deps = [":envoy-bin", ":envoy-restarter"],
 )
 
 
@@ -51,6 +69,6 @@ pkg_deb(
     homepage = "https://github.com/envoyproxy/envoy",
     maintainer = "Lyft (packaged by https://github.com/pcn)",
     package = "lyft-envoy",
-    version = "1.5.0-librato1"
+    version = "1.5.0-librato2"
     # version_file = ":debian-version",  # version_file is useless until https://github.com/bazelbuild/bazel/issues/3652 is fixed
 )
